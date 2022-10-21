@@ -29,7 +29,7 @@ class Vehiculo:
 objeto=Vehiculo()
 pygame.init()
 ventana = pygame.display.set_mode((800, 600))
-nae = pygame.image.load('nae.png')
+nae = pygame.image.load('nae2.png')
 EJECUTA = True
 while EJECUTA:
     for event in pygame.event.get():
