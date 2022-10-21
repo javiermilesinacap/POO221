@@ -28,7 +28,8 @@ class Vehiculo:
         self.__lon -= (self.__velocidad/100)+5
 objeto=Vehiculo()
 pygame.init()
-screen = pygame.display.set_mode((800, 600))
+ventana = pygame.display.set_mode((800, 600))
+nae = pygame.image.load('nae.png')
 EJECUTA = True
 while EJECUTA:
     for event in pygame.event.get():
@@ -40,4 +41,7 @@ while EJECUTA:
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_a):
             objeto.retroceder()
             print("Retrocediendo",objeto.getLon())
+    ventana.fill((0, 0, 0))
+    ventana.blit(nae, (objeto.getLon(), 100))
+    pygame.display.update()
 pygame.quit()
