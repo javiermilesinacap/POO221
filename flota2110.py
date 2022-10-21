@@ -1,5 +1,8 @@
 import pygame
 class Vehiculo: 
+    __lat = 0
+    __lon = 0
+    __velocidad = 0
     def __init__(self):
         __lat = 0
         __lon = 0
@@ -19,6 +22,10 @@ class Vehiculo:
         self.__lon = longitud
     def setVelocidad(self,velocidad):
         self.__velocidad = velocidad
+    def avanzar(self):
+        self.__lon += (self.__velocidad/100)+5
+    def retroceder(self):
+        self.__lon -= (self.__velocidad/100)+5
 objeto=Vehiculo()
 pygame.init()
 screen = pygame.display.set_mode((800, 600))
@@ -28,7 +35,9 @@ while EJECUTA:
         if event.type == pygame.QUIT:
             EJECUTA = False
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_d):
-            print("Avanzando")
+            objeto.avanzar()
+            print("Avanzando",objeto.getLon())
         if (event.type == pygame.KEYDOWN and event.key == pygame.K_a):
-            print("Retrocediendo")
+            objeto.retroceder()
+            print("Retrocediendo",objeto.getLon())
 pygame.quit()
