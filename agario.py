@@ -86,7 +86,7 @@ while run:
             player.score += 1
             print("Score: ", player.score)
     text = pygame.font.SysFont('comicsans', 30, True, True)
-    text = text.render("Score: " + str(player.score), 1, (0, 0, 0))
+    text = text.render("q= exit - Score: " + str(player.score), 1, (0, 0, 0))
     
     redrawGameWindow()
 
