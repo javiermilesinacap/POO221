@@ -63,4 +63,11 @@ while run:
     player.move()
     enemy.move()
     redrawGameWindow()
+    if(player.x + player.radius > enemy.x - enemy.radius and player.x - player.radius < enemy.x + enemy.radius and player.y + player.radius > enemy.y - enemy.radius and player.y - player.radius < enemy.y + enemy.radius):
+        print("Collision")
+        player.radius += 1
+        enemy.radius -= 1
+        if enemy.radius < 0:
+            enemy.radius = 0
+            
 pygame.quit()
