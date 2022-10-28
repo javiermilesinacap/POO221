@@ -54,7 +54,9 @@ def redrawGameWindow():
     win.blit(text, (10, 10))
     pygame.display.update()
 pygame.init()
-win = pygame.display.set_mode((500, 500))
+info = pygame.display.Info()
+SIZE = WIDTH, HEIGHT = info.current_w, info.current_h
+win = pygame.display.set_mode(SIZE)
 pygame.display.set_caption("Agario")
 player = Player(250, 250, 50, (255, 0, 0))
 enemy = Enemy(100, 100, 50, (0, 255, 0))
@@ -64,12 +66,19 @@ while run:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:
+                player.vel += 1
+            if event.button == 3:
+                player.vel -= 1
+        if event.type == pygame.KEYDOWN and event.key == pygame.K_q:
+            run = False
     player.move()
     enemy.move()
     if(player.x + player.radius > enemy.x - enemy.radius and player.x - player.radius < enemy.x + enemy.radius and player.y + player.radius > enemy.y - enemy.radius and player.y - player.radius < enemy.y + enemy.radius):
         print("Collision")
-        player.radius += 1
-        enemy.radius -= 1
+        player.radius += (enemy.radius/6)
+        enemy.radius = -1
         if enemy.radius < 0:
             enemy.radius = 50
             enemy.x = random.randint(0, 500)
