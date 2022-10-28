@@ -46,7 +46,13 @@ class Enemy:
             self.vel *= -1
         if self.x > 500 - self.radius or self.x < self.radius:
             self.vel *= -1
-
+def createEnemy():
+    x = random.randint(50, 450)
+    y = random.randint(50, 450)
+    radius = random.randint(10, 50)
+    color = (random.randint(0, 255), random.randint(0, 255), random.randint(0, 255))
+    enemy = Enemy(x, y, radius, color)
+    return enemy
 def redrawGameWindow():
     win.fill((255,255,255))
     player.draw(win)
@@ -58,8 +64,8 @@ info = pygame.display.Info()
 SIZE = WIDTH, HEIGHT = info.current_w, info.current_h
 win = pygame.display.set_mode(SIZE)
 pygame.display.set_caption("Agario")
-player = Player(250, 250, 50, (255, 0, 0))
-enemy = Enemy(100, 100, 50, (0, 255, 0))
+player = Player(250, 250, 10, (255, 0, 0))
+enemy = Enemy(random.randint(0, WIDTH), random.randint(0, HEIGHT), 10, (0, 255, 0))
 run = True
 while run:
     pygame.time.delay(50)
@@ -80,11 +86,21 @@ while run:
         player.radius += (enemy.radius/6)
         enemy.radius = -1
         if enemy.radius < 0:
-            enemy.radius = 50
-            enemy.x = random.randint(0, 500)
-            enemy.y = random.randint(0, 500)
+            enemy.radius = 10
+            enemy.x = random.randint(0, WIDTH)
+            enemy.y = random.randint(0, HEIGHT)
             player.score += 1
             print("Score: ", player.score)
+    if(enemy.x > WIDTH - enemy.radius or enemy.x < enemy.radius):
+            player.score -= 1
+            enemy.x = random.randint(0, WIDTH)
+            enemy.y = random.randint(0, HEIGHT)
+            createEnemy()
+    if(enemy.y > HEIGHT - enemy.radius or enemy.y < enemy.radius):
+            player.score -= 1
+            enemy.x = random.randint(0, WIDTH)
+            enemy.y = random.randint(0, HEIGHT)
+            createEnemy()
     text = pygame.font.SysFont('comicsans', 30, True, True)
     text = text.render("q= exit - Score: " + str(player.score), 1, (0, 0, 0))
     
