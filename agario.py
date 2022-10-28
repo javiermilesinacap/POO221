@@ -1,11 +1,13 @@
 import pygame
 class Player:
-    def __init__(self, x, y, radius, color):
+    def __init__(self, x, y, radius, color, score=0, vel=0):
         self.x = x
         self.y = y
         self.radius = radius
         self.color = color
         self.vel = 5
+        self.score = score
+        self.vel = vel
     def draw(self, win):
         pygame.draw.circle(win, self.color, (self.x, self.y), self.radius)
     def move(self):
@@ -48,6 +50,7 @@ def redrawGameWindow():
     win.fill((255,255,255))
     player.draw(win)
     enemy.draw(win)
+    win.blit(text, (10, 10))
     pygame.display.update()
 pygame.init()
 win = pygame.display.set_mode((500, 500))
@@ -62,12 +65,22 @@ while run:
             run = False
     player.move()
     enemy.move()
-    redrawGameWindow()
     if(player.x + player.radius > enemy.x - enemy.radius and player.x - player.radius < enemy.x + enemy.radius and player.y + player.radius > enemy.y - enemy.radius and player.y - player.radius < enemy.y + enemy.radius):
         print("Collision")
         player.radius += 1
         enemy.radius -= 1
         if enemy.radius < 0:
             enemy.radius = 0
-            
+            enemy.x = 100
+            enemy.y = 100
+            enemy.vel = 3
+            enemy.radius = 50
+            player.score += 1
+            print("Score: ", player.score)
+    text = pygame.font.SysFont('comicsans', 30, True, True)
+    text = text.render("Score: " + str(player.score), 1, (0, 0, 0))
+    
+    redrawGameWindow()
+
+
 pygame.quit()
