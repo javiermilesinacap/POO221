@@ -1,6 +1,7 @@
 import pygame
+import random
 class Player:
-    def __init__(self, x, y, radius, color, score=0, vel=0):
+    def __init__(self, x, y, radius, color, score=0, vel=5):
         self.x = x
         self.y = y
         self.radius = radius
@@ -70,11 +71,9 @@ while run:
         player.radius += 1
         enemy.radius -= 1
         if enemy.radius < 0:
-            enemy.radius = 0
-            enemy.x = 100
-            enemy.y = 100
-            enemy.vel = 3
             enemy.radius = 50
+            enemy.x = random.randint(0, 500)
+            enemy.y = random.randint(0, 500)
             player.score += 1
             print("Score: ", player.score)
     text = pygame.font.SysFont('comicsans', 30, True, True)
