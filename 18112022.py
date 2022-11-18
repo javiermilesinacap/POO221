@@ -1,9 +1,25 @@
 import tkinter
-
 ventana = tkinter.Tk()
 ventana.geometry("1024x768")
 caja = tkinter.Entry()
 caja.pack()
-etiqueta = tkinter.Label("Hola Mundo")
-
+etiqueta = tkinter.Label(text="Hola")
+etiqueta.pack()
+lista = tkinter.Listbox(ventana)
+lista.insert(1,"Hola")
+lista.insert(2,"Mundo")
+lista.option_add("*font", "Helvetica 20")
+lista.pack()
+radio = tkinter.Radiobutton(ventana, text="Opcion 1", value=1)
+radio.pack()
+radio = tkinter.Radiobutton(ventana, text="Opcion 2", value=2)
+radio.pack()
+check = tkinter.Checkbutton(ventana, text="Opcion 1")
+check.pack()
+def guardar():
+    f = open("datos.txt", "w")
+    f.write("Nombre: " + caja.get())
+    f.close()
+boton= tkinter.Button(ventana, text="Boton", command=guardar)
+boton.pack()
 ventana.mainloop()
